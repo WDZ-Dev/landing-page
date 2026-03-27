@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 interface NavbarProps {
   onOpenModal: () => void
+  variant?: 'landing' | 'openclaw'
 }
 
-export default function Navbar({ onOpenModal }: NavbarProps) {
+export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+
+  const isOpenClaw = variant === 'openclaw' || location.pathname === '/openclaw'
+
+  // Prefix hash links with / when not on the landing page
+  const sectionLink = (hash: string) => (isOpenClaw ? `/${hash}` : hash)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -16,10 +24,10 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
 
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
-      <a href="#" className="logo">
+      <Link to="/" className="logo">
         <div className="logo-mark">W</div>
         WDZ Solutions
-      </a>
+      </Link>
       <button
         className="nav-toggle"
         aria-label="Toggle menu"
@@ -31,27 +39,41 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
       </button>
       <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
         <li>
-          <a href="#features" onClick={() => setMenuOpen(false)}>Solutions</a>
+          <a href={sectionLink('#features')} onClick={() => setMenuOpen(false)}>Solutions</a>
         </li>
         <li>
-          <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
-        </li>
-        {/* <li><a href="#testimonials">Results</a></li> */}
-        <li>
-          <a href="#about" onClick={() => setMenuOpen(false)}>Team</a>
+          <a href={sectionLink('#process')} onClick={() => setMenuOpen(false)}>Process</a>
         </li>
         <li>
-          <a
-            href="#"
-            className="btn btn-primary"
-            onClick={(e) => {
-              e.preventDefault()
-              setMenuOpen(false)
-              onOpenModal()
-            }}
-          >
-            Join Waitlist <span className="btn-arrow">&rarr;</span>
-          </a>
+          <a href={sectionLink('#about')} onClick={() => setMenuOpen(false)}>Team</a>
+        </li>
+        <li>
+          <Link to="/openclaw" className={isOpenClaw ? 'nav-active' : ''} onClick={() => setMenuOpen(false)}>
+            OpenClaw
+          </Link>
+        </li>
+        <li>
+          {isOpenClaw ? (
+            <a
+              href="#quote"
+              className="btn btn-primary"
+              onClick={() => setMenuOpen(false)}
+            >
+              Get a Quote <span className="btn-arrow">&rarr;</span>
+            </a>
+          ) : (
+            <a
+              href="#"
+              className="btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault()
+                setMenuOpen(false)
+                onOpenModal()
+              }}
+            >
+              Join Waitlist <span className="btn-arrow">&rarr;</span>
+            </a>
+          )}
         </li>
       </ul>
     </nav>

@@ -1176,3 +1176,424 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* ═══════════════════════════════════════════
+   OPENCLAW PAGE STYLES
+   ═══════════════════════════════════════════ */
+
+/* Nav active link */
+.nav-active {
+  color: var(--accent) !important;
+}
+
+/* ─── OPENCLAW HERO BRANDING ─── */
+.oc-badge {
+  background: #FFF0EB;
+  border-color: rgba(255, 90, 45, 0.15);
+  color: #D94A22;
+}
+
+.oc-dot {
+  background: #FF5A2D;
+}
+
+.oc-btn-primary {
+  background: #FF5A2D;
+}
+
+.oc-btn-primary:hover {
+  background: #E5471F;
+  box-shadow: 0 4px 20px rgba(255, 90, 45, 0.3);
+}
+
+/* OpenClaw orbs */
+.oc-orb-1 {
+  width: 280px;
+  height: 280px;
+  background: #FF5A2D;
+  top: 8%;
+  right: 8%;
+}
+
+.oc-orb-2 {
+  width: 180px;
+  height: 180px;
+  background: #FF8C66;
+  bottom: 18%;
+  left: 8%;
+  animation-delay: -3s;
+}
+
+.oc-orb-3 {
+  width: 140px;
+  height: 140px;
+  background: #CC4723;
+  top: 42%;
+  left: 28%;
+  animation-delay: -5s;
+}
+
+/* Molty the lobster — central hero element */
+.oc-molty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  z-index: 3;
+  animation: molty-bob 4s ease-in-out infinite;
+}
+
+@keyframes molty-bob {
+  0%, 100% { transform: translate(-50%, -52%) rotate(0deg); }
+  25% { transform: translate(-50%, -54%) rotate(1.5deg); }
+  75% { transform: translate(-50%, -50%) rotate(-1.5deg); }
+}
+
+/* Card positions orbiting Molty */
+.oc-card-tl {
+  top: 4%;
+  left: 2%;
+  right: auto;
+  bottom: auto;
+  animation-delay: 0s;
+}
+
+.oc-card-bl {
+  bottom: 8%;
+  left: 0%;
+  top: auto;
+  right: auto;
+  animation-delay: -2s;
+}
+
+.oc-card-r {
+  top: 14%;
+  right: 0%;
+  left: auto;
+  bottom: auto;
+  animation-delay: -4s;
+}
+
+/* OpenClaw card icon colors */
+.oc-icon-orange {
+  background: #FFF0EB;
+  color: #FF5A2D;
+}
+
+.oc-icon-warm {
+  background: #FDF3E1;
+  color: #D4A84B;
+}
+
+.oc-icon-deep {
+  background: #F3EDEA;
+  color: #8B6E5D;
+}
+
+.oc-card {
+  border-color: rgba(255, 90, 45, 0.08);
+}
+
+.oc-card:hover {
+  border-color: rgba(255, 90, 45, 0.2);
+}
+
+/* ─── PAIN POINTS (3-col override) ─── */
+.pain-points-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .pain-points-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pain-points-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── OPENCLAW PROCESS (3-col) ─── */
+.oc-process-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .oc-process-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .oc-process-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.oc-reassurance {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: 3rem;
+  letter-spacing: 0.01em;
+}
+
+/* ─── INTEGRATIONS ─── */
+.integrations-section {
+  padding: 7rem 3rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.integrations-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.integrations-pills-flat {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.integration-pill {
+  padding: 0.4rem 1rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.3s;
+}
+
+.integration-pill:hover {
+  background: var(--accent-pale);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.integrations-note {
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-top: 2rem;
+  font-weight: 300;
+}
+
+.integrations-note a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.integrations-note a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .integrations-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .integrations-groups {
+    gap: 1.5rem;
+  }
+}
+
+/* ─── FAQ ─── */
+.faq-section {
+  padding: 7rem 3rem;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.faq-list {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.faq-item.faq-open {
+  border-color: var(--accent);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+  transition: color 0.3s;
+}
+
+.faq-question:hover {
+  color: var(--accent);
+}
+
+.faq-toggle {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-pale);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 400;
+  transition: all 0.3s;
+}
+
+.faq-open .faq-toggle {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              padding 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 0 1.5rem;
+}
+
+.faq-open .faq-answer {
+  max-height: 300px;
+  padding: 0 1.5rem 1.25rem;
+}
+
+.faq-answer p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .faq-question {
+    font-size: 0.88rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .faq-answer {
+    padding: 0 1.25rem;
+  }
+
+  .faq-open .faq-answer {
+    padding: 0 1.25rem 1rem;
+  }
+}
+
+/* ─── QUOTE FORM ─── */
+.quote-section {
+  padding: 7rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--accent-pale) 0%, transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.quote-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.quote-form {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px rgba(27, 27, 24, 0.04);
+}
+
+.quote-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+/* Textarea styles */
+textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: all 0.3s;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+}
+
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+textarea:focus {
+  border-color: var(--accent);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(11, 77, 72, 0.08);
+}
+
+@media (max-width: 768px) {
+  .quote-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .quote-form {
+    padding: 1.75rem 1.25rem;
+    border-radius: 20px;
+  }
+}
