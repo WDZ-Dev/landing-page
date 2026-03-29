@@ -729,6 +729,12 @@ nav.scrolled {
   color: var(--accent);
 }
 
+.founder-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
 .founder-linkedin {
   display: inline-flex;
   align-items: center;

@@ -20,13 +20,11 @@ export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps
       setMenuOpen(false)
 
       if (isOpenClaw) {
-        // Navigate to landing page, then scroll after render
         navigate('/')
-        // Wait for the landing page to mount before scrolling
         setTimeout(() => {
           const el = document.getElementById(sectionId)
           el?.scrollIntoView({ behavior: 'smooth' })
-        }, 100)
+        }, 150)
       } else {
         const el = document.getElementById(sectionId)
         el?.scrollIntoView({ behavior: 'smooth' })
@@ -58,7 +56,11 @@ export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps
       </button>
       <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
         <li>
-          <a href="#features" onClick={(e) => handleSectionClick(e, 'features')}>Solutions</a>
+          {isOpenClaw ? (
+            <Link to="/" onClick={() => setMenuOpen(false)}>Solutions</Link>
+          ) : (
+            <a href="#features" onClick={(e) => handleSectionClick(e, 'features')}>Solutions</a>
+          )}
         </li>
         <li>
           <a href="#process" onClick={(e) => handleSectionClick(e, 'process')}>Process</a>

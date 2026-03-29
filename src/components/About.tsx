@@ -16,6 +16,7 @@ const founders = [
     bio: 'ML engineer with experience at Latham & Watkins and a background in machine learning from UC Irvine. Certified in RAG architectures and AI agent systems, he brings hands-on expertise in building production-grade intelligent systems.',
     tags: ['ML Engineering', 'RAG Systems', 'AI Agents'],
     linkedin: 'https://www.linkedin.com/in/danialbeg/',
+    website: 'https://danialbeg.com/',
     delay: '',
   },
   {
@@ -27,6 +28,7 @@ const founders = [
     bio: 'AI researcher and PhD student at the University of Michigan AI Lab, focused on graph-based machine learning, large language models, and AI agents. Previously an ML engineer at Scripps Research, he brings deep research expertise to production AI systems.',
     tags: ['PhD — AI Research', 'LLMs', 'AI Agents'],
     linkedin: 'https://www.linkedin.com/in/zubair-qazi/',
+    website: 'https://zubairqazi.com/',
     delay: 'reveal-delay-1',
   },
   {
@@ -38,6 +40,7 @@ const founders = [
     bio: 'Former IT software developer at Qualcomm, where he architected and deployed internal AI solutions for complex corporate workflows. Also a VC Fellow with Sunset Ventures and Emerging LA, he combines technical execution with venture-scale strategy.',
     tags: ['AI Solutions', 'Enterprise', 'VC Strategy'],
     linkedin: 'https://www.linkedin.com/in/wasayzaman/',
+    website: '',
     delay: 'reveal-delay-2',
   },
 ]
@@ -84,15 +87,31 @@ export default function About() {
                   </span>
                 ))}
               </div>
-              <a
-                href={f.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="founder-linkedin"
-              >
-                <LinkedInIcon />
-                LinkedIn
-              </a>
+              <div className="founder-links">
+                <a
+                  href={f.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="founder-linkedin"
+                >
+                  <LinkedInIcon />
+                  LinkedIn
+                </a>
+                {f.website && (
+                  <a
+                    href={f.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="founder-linkedin"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                    </svg>
+                    Website
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
