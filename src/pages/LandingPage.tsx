@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
@@ -11,6 +11,10 @@ import WaitlistModal from '../components/WaitlistModal'
 
 export default function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false)
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
 
   return (
     <>
