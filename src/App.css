@@ -115,6 +115,13 @@ nav.scrolled {
   letter-spacing: 0.05em;
 }
 
+.logo-mark-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 .nav-links {
   display: flex;
   align-items: center;

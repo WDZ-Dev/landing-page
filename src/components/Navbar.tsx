@@ -42,7 +42,7 @@ export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
       <Link to="/" className="logo">
-        <div className="logo-mark">W</div>
+        <img src="/logo.png" alt="WDZ" className="logo-mark-img" />
         WDZ Solutions
       </Link>
       <button

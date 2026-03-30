@@ -13,7 +13,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
         <div className="hero-content">
           <div className="hero-badge reveal">
             <span className="hero-badge-dot"></span>
-            Now accepting early partners
+            Now accepting early clients
           </div>
           <h1 className="reveal reveal-delay-1">
             AI agents that <em>actually</em> run your operations
