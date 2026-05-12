@@ -434,6 +434,11 @@ nav.scrolled {
   max-width: 620px;
 }
 
+.section-heading em {
+  color: var(--accent);
+  font-style: normal;
+}
+
 .section-subtext {
   font-size: 1.05rem;
   color: var(--text-secondary);
@@ -453,6 +458,45 @@ nav.scrolled {
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.industry-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.industry-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.industry-tab:hover,
+.industry-tab:focus {
+  background: var(--white);
+  border-color: var(--accent-pale);
+  color: var(--text);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.industry-tab.active {
+  background: var(--accent-pale);
+  color: var(--text);
+  border-color: transparent;
+}
+
+.industry-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
 
