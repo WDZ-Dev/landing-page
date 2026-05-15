@@ -141,15 +141,15 @@ export default function Features() {
     <section className="features" id="features" ref={ref}>
       <div className="section-label reveal">Your Custom AI Employees</div>
       <h2 className="section-heading reveal reveal-delay-1">
-        What we can do for <em>{selectedIndustry === 0 ? 'your company' : currentIndustry.title}</em>
+        What we can do for <em>{currentIndustry.title}</em>
       </h2>
 
       <div className="industry-tabs reveal reveal-delay-2">
-        {industries.slice(1).map((industry, index) => (
+        {industries.map((industry, index) => (
           <button
             key={industry.title}
-            className={`industry-tab ${selectedIndustry === index + 1 ? 'active' : ''}`}
-            onClick={() => setSelectedIndustry(index + 1)}
+            className={`industry-tab ${selectedIndustry === index ? 'active' : ''}`}
+            onClick={() => setSelectedIndustry(index)}
           >
             {industry.title}
           </button>
