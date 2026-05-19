@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
+import AgentDemos from '../components/AgentDemos'
 import Process from '../components/Process'
 import Stats from '../components/Stats'
 import About from '../components/About'
@@ -21,6 +22,7 @@ export default function LandingPage() {
       <Navbar onOpenModal={() => setModalOpen(true)} />
       <Hero onOpenModal={() => setModalOpen(true)} />
       <Features />
+      <AgentDemos />
       <Process />
       <Stats />
       <About />
