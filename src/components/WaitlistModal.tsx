@@ -1,6 +1,10 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type ComponentProps } from 'react'
+
+type FormSubmitEvent = Parameters<NonNullable<ComponentProps<'form'>['onSubmit']>>[0]
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL as string
 
 interface WaitlistModalProps {
   isOpen: boolean
@@ -21,7 +25,6 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
       return () => clearTimeout(timer)
     } else {
       document.body.style.overflow = ''
-      // Clear hash so browser doesn't jump to a section anchor
       if (window.location.hash) {
         history.replaceState(null, '', window.location.pathname)
       }
@@ -36,7 +39,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     return () => document.removeEventListener('keydown', handleKey)
   }, [onClose])
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormSubmitEvent) {
     e.preventDefault()
 
     const form = formRef.current
@@ -45,18 +48,24 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     setSubmitting(true)
     setError('')
 
-    const data = {
-      firstName: (form.elements.namedItem('firstName') as HTMLInputElement).value,
-      lastName: (form.elements.namedItem('lastName') as HTMLInputElement).value,
-      company: (form.elements.namedItem('company') as HTMLInputElement).value,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value,
-      createdAt: serverTimestamp(),
-    }
+    const firstName = (form.elements.namedItem('firstName') as HTMLInputElement).value
+    const lastName  = (form.elements.namedItem('lastName')  as HTMLInputElement).value
+    const company   = (form.elements.namedItem('company')   as HTMLInputElement).value
+    const email     = (form.elements.namedItem('email')     as HTMLInputElement).value
+    const needs     = (form.elements.namedItem('needs')     as HTMLTextAreaElement).value
 
     try {
-      await addDoc(collection(db, 'waitlist'), data)
-      setSubmitted(true)
+      // Store lead record — this must succeed for the form to complete
+      await addDoc(collection(db, 'waitlist'), {
+        firstName,
+        lastName,
+        company,
+        email,
+        needs,
+        createdAt: serverTimestamp(),
+      })
 
+      setSubmitted(true)
       setTimeout(() => {
         setSubmitted(false)
         form.reset()
@@ -65,6 +74,27 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
       setError('Something went wrong. Please try again.')
     } finally {
       setSubmitting(false)
+    }
+
+    // Fire-and-forget email notification — never blocks the form
+    // Requires the Firebase "Trigger Email from Firestore" extension installed
+    // and VITE_CONTACT_EMAIL set in your .env file
+    if (CONTACT_EMAIL) {
+      addDoc(collection(db, 'mail'), {
+        to: [CONTACT_EMAIL],
+        message: {
+          subject: `New consultation request — ${firstName} ${lastName} (${company})`,
+          html: `
+            <h2 style="font-family:sans-serif;margin-bottom:24px">New Consultation Request</h2>
+            <table style="font-family:sans-serif;font-size:15px;line-height:1.6;border-collapse:collapse">
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Name</td><td><strong>${firstName} ${lastName}</strong></td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Company</td><td>${company}</td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap;vertical-align:top">Looking for</td><td>${needs.replace(/\n/g, '<br>')}</td></tr>
+            </table>
+          `,
+        },
+      }).catch(() => {/* email extension not yet configured — silently ignore */})
     }
   }
 
@@ -82,11 +112,11 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
 
         {!submitted ? (
           <div className="waitlist-form">
-            <div className="modal-badge">Early Access</div>
-            <h2>Contact Us</h2>
+            <div className="modal-badge">Free Consultation</div>
+            <h2>Book a Free 30-Min Call</h2>
             <p className="modal-subtitle">
-              Be among the first to deploy AI agents built for your business.
-              We'll reach out when your spot opens up.
+              Tell us about your business and what you'd like to automate.
+              We'll reach out to schedule your free consultation.
             </p>
 
             <form ref={formRef} onSubmit={handleSubmit}>
@@ -136,19 +166,28 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                 />
               </div>
 
+              <div className="form-group">
+                <label htmlFor="needs">What are you looking to automate?</label>
+                <textarea
+                  id="needs"
+                  name="needs"
+                  placeholder="e.g. We spend hours each week on invoice processing and customer follow-ups…"
+                  rows={3}
+                  required
+                />
+              </div>
+
               <button
                 type="submit"
                 className="btn btn-primary form-submit"
                 disabled={submitting}
               >
-                {submitting ? 'Submitting...' : <>Request Early Access <span className="btn-arrow">&rarr;</span></>}
+                {submitting ? 'Sending…' : <>Book Free Consultation <span className="btn-arrow">&rarr;</span></>}
               </button>
             </form>
 
             {error && <p className="form-note" style={{ color: '#c44' }}>{error}</p>}
-            <p className="form-note">
-              No spam, ever. We'll only contact you about your waitlist status.
-            </p>
+            <p className="form-note">No spam, ever. We'll only reach out to schedule your call.</p>
           </div>
         ) : (
           <div className="form-success show">
@@ -165,8 +204,8 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                 <path d="M5 13l6 6L23 7" />
               </svg>
             </div>
-            <h3>You're on the list</h3>
-            <p>Thanks for your interest! We'll be in touch soon with next steps.</p>
+            <h3>We'll be in touch!</h3>
+            <p>Thanks for reaching out. Expect a reply within one business day to schedule your free call.</p>
           </div>
         )}
       </div>
