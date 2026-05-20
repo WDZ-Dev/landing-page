@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState, type ComponentProps } from 'react'
-
-type FormSubmitEvent = Parameters<NonNullable<ComponentProps<'form'>['onSubmit']>>[0]
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 
+type FormSubmitEvent = Parameters<NonNullable<ComponentProps<'form'>['onSubmit']>>[0]
+
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL as string
+
+function escapeHtml(s: string) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
 
 interface WaitlistModalProps {
   isOpen: boolean
@@ -17,6 +26,13 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [error, setError] = useState('')
   const firstNameRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    }
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
@@ -66,7 +82,8 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
       })
 
       setSubmitted(true)
-      setTimeout(() => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+      resetTimerRef.current = setTimeout(() => {
         setSubmitted(false)
         form.reset()
       }, 4000)
@@ -80,6 +97,12 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     // Requires the Firebase "Trigger Email from Firestore" extension installed
     // and VITE_CONTACT_EMAIL set in your .env file
     if (CONTACT_EMAIL) {
+      const safeFirst = escapeHtml(firstName)
+      const safeLast = escapeHtml(lastName)
+      const safeCompany = escapeHtml(company)
+      const safeEmail = escapeHtml(email)
+      const safeNeeds = escapeHtml(needs).replace(/\n/g, '<br>')
+
       addDoc(collection(db, 'mail'), {
         to: [CONTACT_EMAIL],
         message: {
@@ -87,10 +110,10 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           html: `
             <h2 style="font-family:sans-serif;margin-bottom:24px">New Consultation Request</h2>
             <table style="font-family:sans-serif;font-size:15px;line-height:1.6;border-collapse:collapse">
-              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Name</td><td><strong>${firstName} ${lastName}</strong></td></tr>
-              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Company</td><td>${company}</td></tr>
-              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap;vertical-align:top">Looking for</td><td>${needs.replace(/\n/g, '<br>')}</td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Name</td><td><strong>${safeFirst} ${safeLast}</strong></td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Company</td><td>${safeCompany}</td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap">Email</td><td><a href="mailto:${encodeURIComponent(email)}">${safeEmail}</a></td></tr>
+              <tr><td style="padding:6px 16px 6px 0;color:#666;white-space:nowrap;vertical-align:top">Looking for</td><td>${safeNeeds}</td></tr>
             </table>
           `,
         },
