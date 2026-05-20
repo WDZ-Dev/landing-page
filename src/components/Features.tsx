@@ -27,11 +27,11 @@ const industries = [
   {
     title: 'Your Company',
     cards: [
-      { icon: 'teal', iconKey: 'mail', title: 'Email automation', description: 'Send follow-ups, confirmations, and newsletters without lifting a finger.', delay: '' },
-      { icon: 'gold', iconKey: 'chat', title: 'Customer support', description: 'Handle common questions and route complex issues to the right team instantly.', delay: 'reveal-delay-1' },
-      { icon: 'warm', iconKey: 'document', title: 'Data entry & processing', description: 'Extract and organize information from documents and emails automatically.', delay: 'reveal-delay-2' },
-      { icon: 'teal', iconKey: 'calendar', title: 'Appointment scheduling', description: 'Let customers book meetings without back-and-forth emails.', delay: '' },
-      { icon: 'gold', iconKey: 'receipt', title: 'Invoice & payment reminders', description: 'Send payment reminders and track overdue invoices automatically.', delay: 'reveal-delay-1' },
+      { icon: 'teal', iconKey: 'mail', title: 'Email automation', description: 'Follow-ups, confirmations, and newsletters — sent on autopilot.', delay: '' },
+      { icon: 'gold', iconKey: 'chat', title: 'Customer support', description: 'Answer common questions and route complex ones to the right team.', delay: 'reveal-delay-1' },
+      { icon: 'warm', iconKey: 'document', title: 'Data entry & processing', description: 'Pull structured data from documents and emails automatically.', delay: 'reveal-delay-2' },
+      { icon: 'teal', iconKey: 'calendar', title: 'Appointment scheduling', description: 'Let customers book meetings without the back-and-forth.', delay: '' },
+      { icon: 'gold', iconKey: 'receipt', title: 'Invoice & payment reminders', description: 'Track overdue invoices and send reminders on a schedule.', delay: 'reveal-delay-1' },
       { icon: 'warm', iconKey: 'chart', title: 'Report generation', description: 'Turn raw data into polished reports and dashboards.', delay: 'reveal-delay-2' },
     ],
   },
@@ -65,57 +65,12 @@ const industries = [
     ],
   },
   {
-    title: 'Real Estate',
-    cards: [
-      { icon: 'teal', iconKey: 'home', title: 'Listing generation', description: 'Create attractive property listings automatically from your data.', delay: '' },
-      { icon: 'gold', iconKey: 'check', title: 'Lead qualification', description: 'Score and route leads so agents spend time only on qualified prospects.', delay: 'reveal-delay-1' },
-      { icon: 'warm', iconKey: 'document', title: 'Document processing', description: 'Process contracts, disclosures, and closing paperwork faster.', delay: 'reveal-delay-2' },
-      { icon: 'teal', iconKey: 'chart', title: 'Comp analysis', description: 'Generate comparable market reports automatically from property data.', delay: '' },
-    ],
-  },
-  {
     title: 'E-Commerce',
     cards: [
       { icon: 'teal', iconKey: 'tag', title: 'Product description generation', description: 'Create SEO-ready product copy automatically from product specs.', delay: '' },
       { icon: 'gold', iconKey: 'chat', title: 'Customer service', description: 'Handle common customer questions and returns with AI-powered automation.', delay: 'reveal-delay-1' },
       { icon: 'warm', iconKey: 'box', title: 'Inventory forecasting', description: 'Predict stock needs to avoid overstock and out-of-stock situations.', delay: 'reveal-delay-2' },
       { icon: 'teal', iconKey: 'star', title: 'Review summarization', description: 'Summarize customer feedback and highlight trends automatically.', delay: '' },
-    ],
-  },
-  {
-    title: 'Agencies',
-    cards: [
-      { icon: 'teal', iconKey: 'chart', title: 'Client reporting', description: 'Auto-generate campaign reports and analytics summaries for clients.', delay: '' },
-      { icon: 'gold', iconKey: 'pencil', title: 'Content production', description: 'Help create copy, briefs, and content drafts quickly.', delay: 'reveal-delay-1' },
-      { icon: 'warm', iconKey: 'clipboard', title: 'Project status updates', description: 'Generate progress updates automatically so teams stay aligned.', delay: 'reveal-delay-2' },
-      { icon: 'teal', iconKey: 'document', title: 'Meeting summaries', description: 'Turn meetings into concise notes with action items.', delay: '' },
-    ],
-  },
-  {
-    title: 'Manufacturing and Logistics',
-    cards: [
-      { icon: 'teal', iconKey: 'chart', title: 'Demand forecasting', description: 'Predict demand trends so you can plan production and inventory.', delay: '' },
-      { icon: 'gold', iconKey: 'search', title: 'Quality inspection', description: 'Detect defects and quality issues automatically with AI.', delay: 'reveal-delay-1' },
-      { icon: 'warm', iconKey: 'wrench', title: 'Predictive maintenance', description: 'Identify equipment issues before they cause downtime.', delay: 'reveal-delay-2' },
-      { icon: 'teal', iconKey: 'truck', title: 'Supply chain monitoring', description: 'Track shipments and flag delays so operations stay on schedule.', delay: '' },
-    ],
-  },
-  {
-    title: 'Accounting Firms',
-    cards: [
-      { icon: 'teal', iconKey: 'receipt', title: 'Receipt / invoice processing', description: 'Capture receipts and invoices automatically into your accounting workflow.', delay: '' },
-      { icon: 'gold', iconKey: 'mail', title: 'Client communication', description: 'Automate client updates and document requests without manual outreach.', delay: 'reveal-delay-1' },
-      { icon: 'warm', iconKey: 'document', title: 'Tax prep automation', description: 'Speed up tax prep with automated categorization and document assembly.', delay: 'reveal-delay-2' },
-      { icon: 'teal', iconKey: 'dollar', title: 'Bookkeeping', description: 'Reconcile accounts and categorize transactions automatically.', delay: '' },
-    ],
-  },
-  {
-    title: 'Insurance',
-    cards: [
-      { icon: 'teal', iconKey: 'document', title: 'Claims processing', description: 'Automate intake, routing, and initial assessment of claims.', delay: '' },
-      { icon: 'gold', iconKey: 'shield', title: 'Underwriting support', description: 'Provide underwriters with fast risk insights and recommendations.', delay: 'reveal-delay-1' },
-      { icon: 'warm', iconKey: 'clipboard', title: 'Policy summarization', description: 'Summarize policies for agents and customers in plain language.', delay: 'reveal-delay-2' },
-      { icon: 'teal', iconKey: 'share', title: 'Customer triage', description: 'Route inquiries to the right team or response path instantly.', delay: '' },
     ],
   },
 ]
