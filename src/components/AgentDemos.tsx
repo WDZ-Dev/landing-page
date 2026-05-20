@@ -1,22 +1,24 @@
 import { useState, useEffect, useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
-function usePhase(durations: number[]) {
+function usePhase(durations: number[], enabled = true) {
   const [phase, setPhase] = useState(0)
+  const phaseRef = useRef(0)
   const durRef = useRef(durations)
 
   useEffect(() => {
+    if (!enabled) return
     let t: ReturnType<typeof setTimeout>
-    const go = (p: number) => {
+    const go = () => {
       t = setTimeout(() => {
-        const next = (p + 1) % durRef.current.length
-        setPhase(next)
-        go(next)
-      }, durRef.current[p])
+        phaseRef.current = (phaseRef.current + 1) % durRef.current.length
+        setPhase(phaseRef.current)
+        go()
+      }, durRef.current[phaseRef.current])
     }
-    go(0)
+    go()
     return () => clearTimeout(t)
-  }, [])
+  }, [enabled])
 
   return phase
 }
@@ -30,9 +32,9 @@ function ChromeDots() {
 }
 
 // ── Document Processing ──────────────────────────────────────────
-function DocDemo() {
+function DocDemo({ playing }: { playing: boolean }) {
   // phases: 0=idle  1=scanning  2=extracting  3=done
-  const phase = usePhase([1600, 2400, 2800, 1800])
+  const phase = usePhase([1600, 2400, 2800, 1800], playing)
 
   const items = [
     '2 parties identified',
@@ -101,9 +103,9 @@ function DocDemo() {
 }
 
 // ── Client Communication ─────────────────────────────────────────
-function CommDemo() {
+function CommDemo({ playing }: { playing: boolean }) {
   // phases: 0=empty  1=customer msg  2=typing  3=agent reply
-  const phase = usePhase([1400, 2000, 1800, 3200])
+  const phase = usePhase([1400, 2000, 1800, 3200], playing)
 
   return (
     <div className="agent-demo-card reveal reveal-delay-1">
@@ -162,9 +164,9 @@ function CommDemo() {
 }
 
 // ── Reporting & Analytics ────────────────────────────────────────
-function ReportDemo() {
+function ReportDemo({ playing }: { playing: boolean }) {
   // phases: 0=empty  1=bars fill  2=values appear  3=footer
-  const phase = usePhase([1400, 2600, 1800, 2400])
+  const phase = usePhase([1400, 2600, 1800, 2400], playing)
 
   const metrics = [
     { label: 'Revenue',   value: '$124K', pct: 78, trend: '+12%' },
@@ -232,6 +234,29 @@ function ReportDemo() {
 // ── Section ──────────────────────────────────────────────────────
 export default function AgentDemos() {
   const ref = useScrollReveal<HTMLElement>()
+  const [inView, setInView] = useState(false)
+  const [pageVisible, setPageVisible] = useState(
+    typeof document === 'undefined' ? true : document.visibilityState === 'visible',
+  )
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0, rootMargin: '200px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [ref])
+
+  useEffect(() => {
+    const onVis = () => setPageVisible(document.visibilityState === 'visible')
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [])
+
+  const playing = inView && pageVisible
 
   return (
     <section className="agent-demos" id="demos" ref={ref}>
@@ -243,9 +268,9 @@ export default function AgentDemos() {
         The three most impactful automations — visualised live across every industry we serve.
       </p>
       <div className="agent-demos-grid">
-        <DocDemo />
-        <CommDemo />
-        <ReportDemo />
+        <DocDemo playing={playing} />
+        <CommDemo playing={playing} />
+        <ReportDemo playing={playing} />
       </div>
     </section>
   )
