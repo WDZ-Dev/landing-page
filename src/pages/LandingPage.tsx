@@ -6,6 +6,7 @@ import AgentDemos from '../components/AgentDemos'
 import Process from '../components/Process'
 import Stats from '../components/Stats'
 import About from '../components/About'
+import Security from '../components/Security'
 import CTA from '../components/CTA'
 import Footer from '../components/Footer'
 import WaitlistModal from '../components/WaitlistModal'
@@ -26,6 +27,7 @@ export default function LandingPage() {
       <Process />
       <Stats />
       <About />
+      <Security />
       <CTA onOpenModal={() => setModalOpen(true)} />
       <Footer />
       <WaitlistModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
