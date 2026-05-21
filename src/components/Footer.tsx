@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
-// TODO: replace with the real LinkedIn company URL
-const LINKEDIN_URL = 'https://www.linkedin.com/company/wdz-solutions'
+const LINKEDIN_URL = 'https://www.linkedin.com/company/wdzsolutions'
 
 export default function Footer() {
   return (
