@@ -27,6 +27,14 @@ export default function PrivacyPage() {
           </p>
 
           <p>
+            This site uses PostHog for product analytics so we can see which
+            pages get traffic and where visitors drop off. It sets a cookie
+            and records clicks, pageviews, and form submissions. We don't
+            sell or share that data; it lives in PostHog and isn't joined
+            to data from your engagements with us.
+          </p>
+
+          <p>
             If you'd like a full breakdown before we publish it — what we
             collect, how long we keep it, and how to ask us to delete it —
             email us at{' '}
