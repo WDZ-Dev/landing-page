@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ComponentProps } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { track } from '../analytics'
 
 type FormSubmitEvent = Parameters<NonNullable<ComponentProps<'form'>['onSubmit']>>[0]
 
@@ -36,6 +37,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
 
   useEffect(() => {
     if (isOpen) {
+      track('consultation_modal_opened')
       document.body.style.overflow = 'hidden'
       const timer = setTimeout(() => firstNameRef.current?.focus(), 350)
       return () => clearTimeout(timer)
@@ -81,6 +83,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         createdAt: serverTimestamp(),
       })
 
+      track('consultation_submitted', { company_domain: email.split('@')[1] ?? null })
       setSubmitted(true)
       if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
       resetTimerRef.current = setTimeout(() => {

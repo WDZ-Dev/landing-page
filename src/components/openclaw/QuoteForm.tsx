@@ -2,6 +2,7 @@ import { useRef, useState, type FormEvent } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
+import { track } from '../../analytics'
 
 export default function QuoteForm() {
   const [submitted, setSubmitted] = useState(false)
@@ -34,6 +35,7 @@ export default function QuoteForm() {
 
     try {
       await addDoc(collection(db, 'openclaw-quotes'), data)
+      track('openclaw_quote_submitted', { company_domain: data.email.split('@')[1] ?? null })
       setSubmitted(true)
     } catch {
       setError('Something went wrong. Please try again.')
