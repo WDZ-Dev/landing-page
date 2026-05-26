@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import MockupAnimation from './MockupAnimation'
 
 const ICONS: Record<string, string> = {
   mail: 'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75',
@@ -73,6 +74,15 @@ const industries = [
       { icon: 'teal', iconKey: 'star', title: 'Review summarization', description: 'Summarize customer feedback and highlight trends automatically.', delay: '' },
     ],
   },
+  {
+    title: 'Construction',
+    cards: [
+      { icon: 'teal', iconKey: 'clipboard', title: 'Bid management', description: 'Assemble, compare, and track bids automatically so you never miss a deadline.', delay: '' },
+      { icon: 'gold', iconKey: 'document', title: 'Compliance documentation', description: 'Generate permits, safety reports, and inspection checklists from project data.', delay: 'reveal-delay-1' },
+      { icon: 'warm', iconKey: 'calendar', title: 'Subcontractor scheduling', description: 'Coordinate crews and subs across job sites without endless phone calls.', delay: 'reveal-delay-2' },
+      { icon: 'teal', iconKey: 'chart', title: 'Budget tracking', description: 'Monitor project costs in real time and flag overruns before they escalate.', delay: '' },
+    ],
+  },
 ]
 
 export default function Features() {
@@ -114,22 +124,27 @@ export default function Features() {
       <div className="industry-display reveal reveal-delay-2">
         {currentIndustry.cards.map((card) => (
           <div key={card.title} className={`feature-card reveal ${card.delay}`}>
-            <div className={`feature-icon icon-${card.icon}`}>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d={ICONS[card.iconKey] || ICONS.check} />
-              </svg>
+            <MockupAnimation iconKey={card.iconKey} industry={currentIndustry.title} />
+            <div className="feature-card-info">
+              <div className={`feature-icon icon-${card.icon}`}>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d={ICONS[card.iconKey] || ICONS.check} />
+                </svg>
+              </div>
+              <div>
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
             </div>
-            <h3>{card.title}</h3>
-            <p>{card.description}</p>
           </div>
         ))}
       </div>
