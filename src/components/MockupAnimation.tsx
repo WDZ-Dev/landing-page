@@ -29,7 +29,7 @@ const BADGE_PHASES: Record<string, { title: string; durations: number[]; phases:
 function useHoverPhase(durations: number[]) {
   const [phase, setPhase] = useState(0)
   const [hovered, setHovered] = useState(false)
-  const timer = useRef<ReturnType<typeof setTimeout>>()
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
     if (!hovered) {
@@ -80,7 +80,7 @@ function Chrome({ title, badge }: { title: string; badge: BadgePhase }) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const BODIES: Record<string, (phase: number, c: any) => JSX.Element> = {
+const BODIES: Record<string, (phase: number, c: any) => React.JSX.Element> = {
   mail: (_p, c: MailContent) => (
     <div className="mk-body mk-mail-body">
       {c.rows.map((r, i) => (
