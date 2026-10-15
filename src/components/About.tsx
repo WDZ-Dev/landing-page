@@ -1,4 +1,4 @@
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { FadeUp, RevealText, TiltCard } from './motion'
 
 const LinkedInIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -13,7 +13,7 @@ const founders = [
     photoStyle: { objectPosition: 'center 25%', transform: 'scale(1.3)' } as React.CSSProperties,
     name: 'Danial Beg',
     title: 'Co-Founder',
-    bio: 'ML engineer with experience at Latham & Watkins and a background in machine learning from UC Irvine. Certified in RAG architectures and AI agent systems, he brings hands-on expertise in building production-grade intelligent systems.',
+    bio: 'ML engineer with experience at Latham & Watkins, certified in RAG architectures and AI agent systems.',
     tags: ['ML Engineering', 'RAG Systems', 'AI Agents'],
     linkedin: 'https://www.linkedin.com/in/danialbeg/',
     website: 'https://danialbeg.com/',
@@ -25,7 +25,7 @@ const founders = [
     photoStyle: { objectPosition: 'center 0%' } as React.CSSProperties,
     name: 'Zubair Qazi',
     title: 'Co-Founder',
-    bio: 'AI researcher and PhD student at the University of Michigan AI Lab, focused on graph-based machine learning, large language models, and AI agents. Previously an ML engineer at Scripps Research, he brings deep research expertise to production AI systems.',
+    bio: 'AI researcher and PhD student at the University of Michigan AI Lab, previously an ML engineer at Scripps Research.',
     tags: ['PhD — AI Research', 'LLMs', 'AI Agents'],
     linkedin: 'https://www.linkedin.com/in/zubair-qazi/',
     website: 'https://zubairqazi.com/',
@@ -37,7 +37,7 @@ const founders = [
     photoStyle: {} as React.CSSProperties,
     name: 'Wasay Zaman',
     title: 'Co-Founder',
-    bio: 'Former IT software developer at Qualcomm, where he architected and deployed internal AI solutions for complex corporate workflows. Also a VC Fellow with Sunset Ventures and Emerging LA, he combines technical execution with venture-scale strategy.',
+    bio: 'Former Qualcomm developer who deployed internal AI for corporate workflows, and a VC Fellow with Sunset Ventures and Emerging LA.',
     tags: ['AI Solutions', 'Enterprise', 'VC Strategy'],
     linkedin: 'https://www.linkedin.com/in/wasayzaman/',
     website: '',
@@ -46,73 +46,38 @@ const founders = [
 ]
 
 export default function About() {
-  const ref = useScrollReveal<HTMLElement>()
-
   return (
-    <section className="about" id="about" ref={ref}>
-      <div className="about-inner">
-        <div className="about-header">
-          <div className="section-label reveal">Who we are</div>
-          <h2
-            className="section-heading reveal reveal-delay-1"
-            style={{ marginLeft: 'auto', marginRight: 'auto' }}
-          >
-            Built by engineers who ship AI in production
-          </h2>
-          <p className="section-subtext reveal reveal-delay-2">
-            WDZ Solutions was founded by three engineers with deep roots in
-            machine learning research, enterprise software, and applied AI —
-            building end-to-end AI transformation for businesses ready to
-            operate differently.
-          </p>
+    <section className="about" id="about">
+      <div className="wrap">
+        <div className="section-head">
+          <RevealText text="Meet the people who build your agents." />
+          <FadeUp delay={0.1}>
+            <p>WDZ Solutions was founded by three engineers with backgrounds in AI research, enterprise software, and applied machine learning.</p>
+          </FadeUp>
         </div>
-
-        <div className="founders-grid">
-          {founders.map((f) => (
-            <div key={f.name} className={`founder-card reveal ${f.delay}`}>
-              <div className="founder-photo">
-                {f.photo ? (
-                  <img src={f.photo} alt={f.name} style={f.photoStyle} />
-                ) : (
-                  <span className="initials">{f.initials}</span>
-                )}
-              </div>
-              <div className="founder-name">{f.name}</div>
-              <div className="founder-title">{f.title}</div>
-              <p className="founder-bio">{f.bio}</p>
-              <div className="founder-tags">
-                {f.tags.map((tag) => (
-                  <span key={tag} className="founder-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="founder-links">
-                <a
-                  href={f.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="founder-linkedin"
-                >
-                  <LinkedInIcon />
-                  LinkedIn
-                </a>
-                {f.website && (
-                  <a
-                    href={f.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="founder-linkedin"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                    </svg>
-                    Website
-                  </a>
-                )}
-              </div>
-            </div>
+        <div className="founders">
+          {founders.map((f, i) => (
+            <FadeUp key={f.name} delay={i * 0.08}>
+              <TiltCard className="founder" max={6}>
+                <div className="founder-photo">
+                  <img src={f.photo} alt={f.name} style={f.photoStyle} loading="lazy" />
+                </div>
+                <div className="founder-body">
+                  <h3>{f.name}</h3>
+                  <span className="founder-role">{f.title}</span>
+                  <p>{f.bio}</p>
+                  <div className="founder-links">
+                    <a href={f.linkedin} target="_blank" rel="noopener noreferrer"><LinkedInIcon /> LinkedIn</a>
+                    {f.website && (
+                      <a href={f.website} target="_blank" rel="noopener noreferrer">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" /></svg>
+                        Website
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </TiltCard>
+            </FadeUp>
           ))}
         </div>
       </div>

@@ -47,7 +47,6 @@ export default function QuoteForm() {
       <div className="quote-inner">
         {!submitted ? (
           <>
-            <div className="section-label reveal" style={{ textAlign: 'center' }}>Get started</div>
             <h2
               className="section-heading reveal reveal-delay-1"
               style={{ marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}
@@ -100,7 +99,7 @@ export default function QuoteForm() {
 
               <div className="form-group">
                 <label htmlFor="q-automation">
-                  What areas of your business would you like to transform?{' '}
+                  What would you like to hand off?{' '}
                   <span style={{ fontWeight: 300, color: 'var(--text-secondary)' }}>(optional)</span>
                 </label>
                 <textarea

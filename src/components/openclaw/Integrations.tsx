@@ -12,7 +12,6 @@ export default function Integrations() {
   return (
     <section className="integrations-section" ref={ref}>
       <div className="integrations-inner">
-        <div className="section-label reveal" style={{ textAlign: 'center' }}>Integrations</div>
         <h2
           className="section-heading reveal reveal-delay-1"
           style={{ marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}

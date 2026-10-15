@@ -1,59 +1,65 @@
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useRef } from 'react'
+import { motion, useScroll, useSpring } from 'motion/react'
+import { FadeUp, RevealText, spring } from './motion'
 
 const steps = [
   {
     num: 1,
     title: 'Discovery',
-    description:
-      'We map your entire operation, identify where AI can reshape how your business works, and define success metrics.',
-    delay: '',
+    description: 'We learn how your business runs and find the tasks worth handing to AI.',
   },
   {
     num: 2,
     title: 'Design',
-    description:
-      'Our team architects custom agents tailored to your specific processes and system integrations.',
-    delay: 'reveal-delay-1',
+    description: 'We build agents around your exact process and the tools you already use.',
   },
   {
     num: 3,
     title: 'Deploy',
-    description:
-      'Agents go live in your environment with monitoring, guardrails, and human-in-the-loop controls.',
-    delay: 'reveal-delay-2',
+    description: 'Your agents go live, with a person approving anything important.',
   },
   {
     num: 4,
     title: 'Optimize',
-    description:
-      'Continuous improvement driven by real performance data. Your agents get smarter over time.',
-    delay: 'reveal-delay-3',
+    description: 'We track how they perform and keep improving them over time.',
   },
 ]
 
 export default function Process() {
-  const ref = useScrollReveal<HTMLElement>()
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 75%', 'end 55%'] })
+  const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
 
   return (
-    <section className="process" id="process" ref={ref}>
-      <div className="process-inner">
-        <div className="section-label reveal">How it works</div>
-        <h2 className="section-heading reveal reveal-delay-1">
-          From discovery to deployment in weeks, not months
-        </h2>
-        <p className="section-subtext reveal reveal-delay-2">
-          A proven process that transforms your operations with AI — quickly and
-          safely.
-        </p>
-
-        <div className="process-grid">
-          {steps.map((s) => (
-            <div key={s.num} className={`process-step reveal ${s.delay}`}>
-              <div className="process-num">{s.num}</div>
-              <h3>{s.title}</h3>
-              <p>{s.description}</p>
-            </div>
-          ))}
+    <section className="process" id="process">
+      <div className="wrap">
+        <div className="section-head">
+          <RevealText text="Up and running in weeks, not months." />
+          <FadeUp delay={0.1}>
+            <p>Four steps, and you stay in control the whole way.</p>
+          </FadeUp>
+        </div>
+        <div className="timeline" ref={ref}>
+          <div className="timeline-track" aria-hidden="true">
+            <motion.div className="timeline-fill" style={{ scaleX: fill }} />
+          </div>
+          <ol className="timeline-steps">
+            {steps.map((s, i) => (
+              <motion.li
+                key={s.num}
+                className="timeline-step"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-15% 0px' }}
+                transition={{ ...spring, duration: 0.8, delay: i * 0.12 }}
+              >
+                <span className="timeline-dot" aria-hidden="true" />
+                <span className="timeline-num">0{s.num}</span>
+                <h3>{s.title}</h3>
+                <p>{s.description}</p>
+              </motion.li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

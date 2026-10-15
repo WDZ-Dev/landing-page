@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { scrollToY } from '../smooth'
 
 export default function PrivacyPage() {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    scrollToY(0, true)
   }, [])
 
   const noop = () => {}

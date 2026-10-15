@@ -10,3 +10,7 @@ dist
 !.dev.vars.example
 !.env.example
 public/headshots/.DS_Store
+
+# local design-review artifacts
+.impeccable/
+.taste-skill/

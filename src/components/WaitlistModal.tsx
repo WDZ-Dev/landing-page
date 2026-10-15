@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ComponentProps } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { pauseScroll, resumeScroll } from '../smooth'
 
 type FormSubmitEvent = Parameters<NonNullable<ComponentProps<'form'>['onSubmit']>>[0]
 
@@ -37,10 +38,12 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
+      pauseScroll()
       const timer = setTimeout(() => firstNameRef.current?.focus(), 350)
       return () => clearTimeout(timer)
     } else {
       document.body.style.overflow = ''
+      resumeScroll()
       if (window.location.hash) {
         history.replaceState(null, '', window.location.pathname)
       }
@@ -124,6 +127,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   return (
     <div
       className={`modal-overlay${isOpen ? ' active' : ''}`}
+      data-lenis-prevent
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
@@ -135,11 +139,9 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
 
         {!submitted ? (
           <div className="waitlist-form">
-            <div className="modal-badge">Free Consultation</div>
-            <h2>Book a Free 30-Min Call</h2>
+            <h2>Book a free 30-minute call</h2>
             <p className="modal-subtitle">
-              Tell us about your business and what you'd like to automate.
-              We'll reach out to schedule your free consultation.
+              Tell us a little about your business. We’ll reply within one business day to find a time.
             </p>
 
             <form ref={formRef} onSubmit={handleSubmit}>
@@ -190,7 +192,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
               </div>
 
               <div className="form-group">
-                <label htmlFor="needs">What are you looking to automate?</label>
+                <label htmlFor="needs">What takes up too much of your time?</label>
                 <textarea
                   id="needs"
                   name="needs"
@@ -205,7 +207,7 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                 className="btn btn-primary form-submit"
                 disabled={submitting}
               >
-                {submitting ? 'Sending…' : <>Book Free Consultation <span className="btn-arrow">&rarr;</span></>}
+                {submitting ? 'Sending…' : <>Request my call <span className="btn-arrow">&rarr;</span></>}
               </button>
             </form>
 

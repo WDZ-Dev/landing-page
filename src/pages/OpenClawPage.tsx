@@ -8,10 +8,11 @@ import WhyWDZ from '../components/openclaw/WhyWDZ'
 import FAQ from '../components/openclaw/FAQ'
 import QuoteForm from '../components/openclaw/QuoteForm'
 import Footer from '../components/Footer'
+import { scrollToY } from '../smooth'
 
 export default function OpenClawPage() {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    scrollToY(0, true)
   }, [])
 
   const noop = () => {}

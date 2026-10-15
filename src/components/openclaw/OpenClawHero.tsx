@@ -12,12 +12,10 @@ export default function OpenClawHero() {
             OpenClaw Services
           </div>
           <h1 className="reveal reveal-delay-1">
-            Your own AI team — running on <em>hardware you control</em>
+            Your own AI team, on <em>hardware you control</em>
           </h1>
           <p className="hero-description reveal reveal-delay-2">
-            We don't just automate individual tasks — we transform how your
-            entire team works, from communication and documents to scheduling
-            and decision-making. All running privately on your hardware.
+            We set up private AI assistants that handle messages, documents and scheduling for your whole team, all running on a small device in your office.
           </p>
           <div className="hero-actions reveal reveal-delay-3">
             <a href="#quote" className="btn btn-primary btn-large oc-btn-primary">
@@ -114,18 +112,6 @@ export default function OpenClawHero() {
             </div>
 
             {/* Info cards orbit around Molty */}
-            <div className="hero-card oc-card oc-card-tl">
-              <div className="hero-card-icon oc-icon-orange">
-                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 2L2 6l7 4 7-4-7-4z" />
-                  <path d="M2 14l7 4 7-4" />
-                  <path d="M2 10l7 4 7-4" />
-                </svg>
-              </div>
-              <div className="hero-card-label">Your Data</div>
-              <div className="hero-card-value" style={{ color: '#FF5A2D' }}>Stays on your hardware</div>
-            </div>
-
             <div className="hero-card oc-card oc-card-bl">
               <div className="hero-card-icon oc-icon-warm">
                 <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -143,8 +129,8 @@ export default function OpenClawHero() {
                   <path d="M9 6v3l2 2" />
                 </svg>
               </div>
-              <div className="hero-card-label">100+ Skills</div>
-              <div className="hero-card-value">Ready to configure</div>
+              <div className="hero-card-label">100+ built-in skills</div>
+              <div className="hero-card-value">Switched on as you need them</div>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { scrollToEl } from '../smooth'
 
 interface NavbarProps {
   onOpenModal: () => void
@@ -19,23 +20,29 @@ export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps
       e.preventDefault()
       setMenuOpen(false)
 
-      if (isOpenClaw) {
+      if (location.pathname !== '/') {
         navigate('/')
         setTimeout(() => {
           const el = document.getElementById(sectionId)
-          el?.scrollIntoView({ behavior: 'smooth' })
+          scrollToEl(el)
         }, 150)
       } else {
         const el = document.getElementById(sectionId)
-        el?.scrollIntoView({ behavior: 'smooth' })
+        scrollToEl(el)
       }
     },
-    [isOpenClaw, navigate]
+    [location.pathname, navigate]
   )
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', handleScroll)
+    let frame = 0
+    const update = () => {
+      frame = 0
+      setScrolled(window.scrollY > 40)
+    }
+    const handleScroll = () => { if (!frame) frame = requestAnimationFrame(update) }
+    update()
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -56,11 +63,7 @@ export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps
       </button>
       <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
         <li>
-          {isOpenClaw ? (
-            <Link to="/" onClick={() => setMenuOpen(false)}>Solutions</Link>
-          ) : (
-            <a href="#features" onClick={(e) => handleSectionClick(e, 'features')}>Solutions</a>
-          )}
+          <Link to="/demos" className={location.pathname === '/demos' ? 'nav-active' : ''} onClick={() => setMenuOpen(false)}>Demos</Link>
         </li>
         <li>
           <a href="#process" onClick={(e) => handleSectionClick(e, 'process')}>Process</a>
@@ -92,7 +95,7 @@ export default function Navbar({ onOpenModal, variant = 'landing' }: NavbarProps
                 onOpenModal()
               }}
             >
-              Contact Us <span className="btn-arrow">&rarr;</span>
+              Book a free call
             </a>
           )}
         </li>

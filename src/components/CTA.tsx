@@ -1,31 +1,26 @@
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { FadeUp, Magnetic, RevealText } from './motion'
 
 interface CTAProps {
   onOpenModal: () => void
 }
 
 export default function CTA({ onOpenModal }: CTAProps) {
-  const ref = useScrollReveal<HTMLElement>()
-
   return (
-    <section className="cta" ref={ref}>
-      <div className="cta-inner">
-        <div className="section-label reveal">Get started</div>
-        <h2 className="reveal reveal-delay-1">
-          Ready to transform
-          <br />
-          how your business operates?
-        </h2>
-        <p className="reveal reveal-delay-2">
-          We're partnering with a limited number of businesses to deliver
-          full-scale AI transformation — from operations to strategy.
-        </p>
-        <button
-          className="btn btn-primary btn-large reveal reveal-delay-3"
-          onClick={onOpenModal}
-        >
-          Contact Us <span className="btn-arrow">&rarr;</span>
-        </button>
+    <section className="cta">
+      <div className="aurora" aria-hidden="true"><span /><span /><span /></div>
+      <div className="wrap cta-inner">
+        <RevealText text="Ready to hand off the busywork?" />
+        <FadeUp delay={0.15}>
+          <p>We take on a limited number of businesses at a time. On a free 30-minute call, we’ll show you what we could take off your plate first.</p>
+        </FadeUp>
+        <FadeUp delay={0.25}>
+          <Magnetic>
+            <button className="btn btn-light btn-large" onClick={onOpenModal}>
+              Book a free call
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+          </Magnetic>
+        </FadeUp>
       </div>
     </section>
   )

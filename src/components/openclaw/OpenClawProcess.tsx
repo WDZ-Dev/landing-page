@@ -30,9 +30,8 @@ export default function OpenClawProcess() {
   return (
     <section className="process" ref={ref}>
       <div className="process-inner">
-        <div className="section-label reveal">How it works</div>
         <h2 className="section-heading reveal reveal-delay-1">
-          A digital team that never sleeps
+          Set up in three steps
         </h2>
 
         <div className="process-grid oc-process-grid">

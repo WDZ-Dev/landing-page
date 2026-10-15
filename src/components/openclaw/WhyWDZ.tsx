@@ -15,7 +15,7 @@ const reasons = [
     icon: 'gold',
     title: 'No vendor lock-in',
     description:
-      'Built on open-source technology with 247,000+ developers worldwide. You keep everything, always.',
+      'Built on open-source software, so you keep everything, always.',
     svgPath: (
       <path d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
     ),
@@ -48,7 +48,6 @@ export default function WhyWDZ() {
 
   return (
     <section className="features" ref={ref}>
-      <div className="section-label reveal">Why us</div>
       <h2 className="section-heading reveal reveal-delay-1">
         Built by AI engineers. Backed by real expertise.
       </h2>

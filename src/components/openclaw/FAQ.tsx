@@ -46,7 +46,6 @@ export default function FAQ() {
   return (
     <section className="faq-section" ref={ref}>
       <div className="faq-inner">
-        <div className="section-label reveal" style={{ textAlign: 'center' }}>FAQ</div>
         <h2 className="section-heading reveal reveal-delay-1" style={{ marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' }}>
           Common questions
         </h2>
