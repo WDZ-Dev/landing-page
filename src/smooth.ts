@@ -22,8 +22,10 @@ export function initSmoothScroll() {
   })
 }
 
-export function scrollToY(y: number, immediate = false) {
-  if (lenis) lenis.scrollTo(y, { immediate, duration: 1.2 })
+export function scrollToY(y: number, immediate = false, duration = 0.9) {
+  // short hops ease in and out crisply; long glides use a gentle sine so the middle never rushes past
+  const easing = duration > 1.5 ? (t: number) => -(Math.cos(Math.PI * t) - 1) / 2 : (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+  if (lenis) lenis.scrollTo(y, { immediate, duration, lerp: 0, easing })
   else window.scrollTo({ top: y, behavior: immediate ? 'instant' : 'smooth' })
 }
 

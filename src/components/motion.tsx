@@ -79,8 +79,6 @@ export function TiltCard({ children, className = '', max = 8 }: { children: Reac
   const reduce = useReducedMotion()
   const px = useMotionValue(0.5)
   const py = useMotionValue(0.5)
-  const gx = useMotionValue(0)
-  const gy = useMotionValue(0)
   const rect = useRef<DOMRect | null>(null)
   const rx = useSpring(useTransform(py, [0, 1], [max, -max]), tiltSpring)
   const ry = useSpring(useTransform(px, [0, 1], [-max, max]), tiltSpring)
@@ -90,8 +88,6 @@ export function TiltCard({ children, className = '', max = 8 }: { children: Reac
     const r = rect.current ?? (rect.current = e.currentTarget.getBoundingClientRect())
     px.set((e.clientX - r.left) / r.width)
     py.set((e.clientY - r.top) / r.height)
-    gx.set(e.clientX - r.left)
-    gy.set(e.clientY - r.top)
   }
   return (
     <motion.div
@@ -102,7 +98,6 @@ export function TiltCard({ children, className = '', max = 8 }: { children: Reac
       onPointerLeave={() => { px.set(0.5); py.set(0.5); rect.current = null }}
     >
       {children}
-      {!reduce && <span className="tilt-glow-clip" aria-hidden="true"><motion.span className="tilt-glow" style={{ x: gx, y: gy }} /></span>}
     </motion.div>
   )
 }

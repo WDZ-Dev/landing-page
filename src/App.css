@@ -133,7 +133,7 @@ nav.scrolled {
 .nav-toggle span:nth-child(3) { top: 28px; }
 
 /* ─── ORBIT STORY (pinned, scroll-driven 3D) ─── */
-.story { position: relative; height: 440vh; background: var(--night); color: var(--on-night); }
+.story { position: relative; height: 540vh; background: var(--night); color: var(--on-night); }
 .story-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; }
 .hero-glow {
   position: absolute; inset: -20%; z-index: -2;
@@ -143,7 +143,7 @@ nav.scrolled {
     radial-gradient(35% 30% at 20% 75%, rgba(95, 227, 181, 0.1), transparent 70%);
 }
 .orbit-scene { position: absolute; inset: 0; z-index: -1; animation: sceneIn 1.6s var(--ease-out) both; }
-@keyframes sceneIn { from { opacity: 0; transform: scale(1.06); } }
+@keyframes sceneIn { from { opacity: 0; } }
 .story-copy { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .story-copy .btn, .story-copy a { pointer-events: auto; }
 .story-open, .story-finale { display: grid; align-content: start; justify-items: center; text-align: center; gap: 22px; padding-top: clamp(120px, 16vh, 180px); }
@@ -678,3 +678,112 @@ body { background: var(--night); }
 
 /* chips never intercept the pointer, so the scene keeps tracking it smoothly */
 .chip-anchor, .chip-stack, .scene-chip { pointer-events: none; }
+
+/* ─── RESTRAINT: flat fills instead of gradient washes and glows ─── */
+.story-sticky .hero-glow { display: none; }
+.space-glow { background: radial-gradient(60% 45% at 50% 0%, rgba(27, 125, 109, 0.12), transparent 70%); }
+.process, .industries, .about, .demos-more, .integrations-section, .industries.oc-capabilities { background: none; }
+.security::before, .about::before, .industries::before { display: none; }
+.about, .industries, .security { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.hero:not(.hero3d) { background: radial-gradient(40% 45% at 72% 50%, rgba(229, 68, 46, 0.1), transparent 70%); }
+.device { background: rgba(255, 255, 255, 0.04); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 40px 80px -40px rgba(0, 0, 0, 0.8); }
+.console { background: transparent; }
+.timeline-fill { background: var(--mint); }
+.run-result { background: rgba(95, 227, 181, 0.08); box-shadow: inset 0 0 0 1px rgba(95, 227, 181, 0.14); }
+.run-step-active .run-step-text { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--text); animation: stepPulse 1.4s ease-in-out infinite; }
+@keyframes stepPulse { 50% { opacity: 0.55; } }
+.btn-light { box-shadow: none; }
+@media (hover: hover) and (pointer: fine) { .btn-light:hover { box-shadow: none; background: #e9f3ef; } }
+.story-kicker-dot, .story-promises li::before, .pill-dot, .hero-badge-dot { box-shadow: none; animation: none; }
+.scene-loader span { background: rgba(95, 227, 181, 0.12); }
+.story-hint span { background: var(--on-night-2); opacity: 0.6; }
+.chip-done { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18); }
+
+/* labelled busywork in the opening mess */
+.mess-tag {
+  display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; pointer-events: none;
+  padding: 8px 14px 8px 11px; border-radius: 999px; font: 550 14px/1 var(--sans); letter-spacing: -0.005em;
+  background: rgba(6, 18, 15, 0.82); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: translateY(-22px);
+}
+.mess-tag .mess-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.mess-tag { color: var(--on-night); }
+@media (max-width: 640px) { .mess-tag { font-size: 12px; padding: 6px 10px 6px 9px; } }
+
+/* film grain instead of stars */
+.space-stars { display: none; }
+.space-grain {
+  position: absolute; inset: 0; opacity: 0.06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+@media (max-width: 640px) { .story-hint { display: none; } }
+
+/* busywork items: readable notification cards that get ticked off as WDZ organizes them */
+.mess-card {
+  position: relative; display: flex; align-items: center; gap: 10px; white-space: nowrap; pointer-events: none;
+  padding: 9px 16px 9px 9px; border-radius: 14px; font-family: var(--sans);
+  background: rgba(8, 22, 19, 0.9); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 12px 30px -14px rgba(0, 0, 0, 0.7);
+  transform: translateY(-34px); transition: transform 300ms var(--ease-out);
+}
+.mess-icon { position: relative; width: 32px; height: 32px; flex: none; border-radius: 9px; display: grid; place-items: center; color: var(--c); background: color-mix(in srgb, var(--c) 16%, transparent); transition: background-color 250ms ease, color 250ms ease; }
+.mess-icon svg { position: absolute; transition: opacity 200ms ease, transform 300ms var(--ease-out); }
+.mess-check { opacity: 0; transform: scale(0.6); }
+.mess-text { display: grid; gap: 2px; line-height: 1.2; }
+.mess-text strong { font-size: 14px; font-weight: 600; color: var(--on-night); letter-spacing: -0.01em; transition: color 250ms ease; }
+.mess-text small { font-size: 12px; color: var(--on-night-2); }
+.mess-alert { position: absolute; top: -3px; right: -3px; width: 9px; height: 9px; border-radius: 50%; background: #e8a25a; box-shadow: 0 0 0 2px var(--night); transition: transform 250ms var(--ease-out); }
+.mess-card.done .mess-icon { background: var(--mint); color: var(--night); }
+.mess-card.done .mess-glyph { opacity: 0; transform: scale(0.6); }
+.mess-card.done .mess-check { opacity: 1; transform: none; }
+.mess-card.done .mess-text strong { color: var(--on-night-2); text-decoration: line-through; text-decoration-color: rgba(255, 255, 255, 0.4); }
+.mess-card.done .mess-alert { transform: scale(0); }
+.mess-tag { display: none; }
+@media (max-width: 640px) {
+  .mess-card { padding: 7px 12px 7px 7px; gap: 8px; border-radius: 12px; }
+  .mess-icon { width: 26px; height: 26px; }
+  .mess-text strong { font-size: 12.5px; }
+  .mess-text small { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .mess-card, .mess-icon svg { transition: none; } }
+
+/* cards are the stars of the opening: larger, brighter edge, a slight messy tilt */
+.mess-card { padding: 11px 18px 11px 11px; border-radius: 16px; gap: 12px; transform: rotate(var(--tilt, 0deg)); background: rgba(10, 26, 22, 0.94); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 16px 36px -14px rgba(0, 0, 0, 0.8); }
+.mess-icon { width: 36px; height: 36px; border-radius: 10px; }
+.mess-text strong { font-size: 15px; }
+.mess-text small { font-size: 12.5px; }
+.mess-card.done { transform: rotate(0deg); }
+@media (max-width: 640px) {
+  .mess-card { padding: 8px 13px 8px 8px; gap: 9px; border-radius: 13px; }
+  .mess-icon { width: 28px; height: 28px; }
+  .mess-text strong { font-size: 13px; }
+  .mess-text small { font-size: 11.5px; }
+}
+
+/* scrubbed intro copy */
+.story-copy { will-change: opacity, transform; }
+.intro-stack { display: grid; justify-items: center; gap: 22px; }
+.story-caption { display: grid; place-items: center; padding-bottom: 32vh; }
+.story-caption p { font-size: clamp(1.75rem, 3.6vw, 3rem); font-weight: 600; letter-spacing: -0.035em; color: var(--on-night); text-shadow: 0 2px 30px rgba(4, 13, 11, 0.8); }
+
+/* "Next" control through the story */
+.story-next {
+  position: absolute; left: 0; right: 0; bottom: 28px; margin: 0 auto; width: fit-content; z-index: 4;
+  display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 20px; border-radius: 999px;
+  background: rgba(10, 26, 22, 0.86); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  color: var(--on-night); font-size: 0.9375rem; font-weight: 550; white-space: nowrap;
+  transition: background-color 200ms ease;
+}
+.story-next svg { transition: transform 260ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .story-next:hover { background: rgba(20, 44, 38, 0.95); } .story-next:hover svg { transform: translateY(2px); } }
+.story-next:active { scale: 0.97; }
+.story-hint { display: none; }
+
+/* when ticked off, a card shows which agent took it */
+.mess-handled { display: none; font-size: 12px; color: var(--mint); font-weight: 550; }
+.mess-card.done .mess-text small { display: none; }
+.mess-card.done .mess-handled { display: block; }
+/* agent names beside the planets in the wide shots */
+.planet-name { pointer-events: none; transform: translate(26px, -50%); white-space: nowrap; font: 600 13px/1 var(--sans); color: var(--on-night); padding: 6px 10px; border-radius: 999px; background: rgba(8, 22, 19, 0.82); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); animation: chipIn 500ms var(--ease-out) both; }
+.planet-name i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; }
+@media (max-width: 640px) { .planet-name { font-size: 11px; padding: 5px 8px; transform: translate(18px, -50%); } }

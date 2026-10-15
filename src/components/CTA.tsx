@@ -7,7 +7,6 @@ interface CTAProps {
 export default function CTA({ onOpenModal }: CTAProps) {
   return (
     <section className="cta">
-      <div className="aurora" aria-hidden="true"><span /><span /><span /></div>
       <div className="wrap cta-inner">
         <RevealText text="Ready to hand off the busywork?" />
         <FadeUp delay={0.15}>
